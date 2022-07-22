@@ -1,0 +1,43 @@
+<app-loader [loading]="false" ></app-loader>
+
+<div class="col col-xs-3">
+                <input  placeholder="Search ..." type="text" class="form-control" [(ngModel)]="searchText">
+            </div>
+<table  class="table pd-b-5" >
+  
+  <thead>
+    <tr>
+    <th>Name  <span style="cursor:pointer" (click)="sortById('name')"> ^ </span></th>
+    <th>id  <span style="cursor:pointer" (click)="sortById('id')"> ^ </span></th>
+    <th>Age  <span style="cursor:pointer" (click)="sortById('age')"> ^ </span></th>
+    <th>City  <span style="cursor:pointer" (click)="sortById('address')"> ^ </span></th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let stud of students | pagination: pageSize : currentPage | selectionFilter : filterKeys  | searchFilter : searchText | sortingFilter: sortType : sortKey ">
+    <td>{{stud.name}}</td>
+    <td>{{stud.id}}</td>
+    <td>{{stud.age}}</td>
+    <td>{{stud.address}}</td>
+    </tr>
+</table>
+
+<div>
+  <input type="checkbox" value="name" name="name" (change)="filterCall($event)"/> <span>name</span> <br />
+  <input type="checkbox" value="age" name="age" (change)="filterCall($event)"/> <span>age</span> <br />
+  <input type="checkbox" value="id" name="id" (change)="filterCall($event)"/> <span>id</span> <br />
+  <input type="checkbox" value="address" name="address" (change)="filterCall($event)"/> <span>address</span>
+  </div>
+<div>
+<nav aria-label="Page navigation ">
+  <ul class="pagination">
+ <li class="page-item"><a class="page-link" (click)="setPagePrev()">Previous</a></li>
+    <li   *ngFor="let page of  numbers" class="page-item"><a class="page-link" (click)="setPage(page)">{{page}}</a></li>
+    <li class="page-item"><a class="page-link" (click)="setPageNext()">Next</a></li>
+  </ul>
+</nav>
+</div>
+
+<alert-data (confirmation)="handleConfirm($event)">My alert</alert-data>
+<button (click)="showAlert()">Show Alert</button>
+
